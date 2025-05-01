@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paneli ATENT - Coinat Live</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 30px; text-align: center; }
+    h1 { color: #333; }
+    .coin { background: white; margin: 10px auto; padding: 15px; width: 250px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Coinat Live - Paneli ATENT</h1>
+  <div id="coinat">
+    <p>Duke u ngarkuar...</p>
+  </div>
+
+  <script>
+    async function merrCoinat() {
+      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,ripple&vs_currencies=usd');
+      const data = await res.json();
+      document.getElementById('coinat').innerHTML = `
+        <div class='coin'>Bitcoin (BTC): $${data.bitcoin.usd}</div>
+        <div class='coin'>Ethereum (ETH): $${data.ethereum.usd}</div>
+        <div class='coin'>BNB: $${data.binancecoin.usd}</div>
+        <div class='coin'>Solana (SOL): $${data.solana.usd}</div>
+        <div class='coin'>XRP: $${data.ripple.usd}</div>
+      `;
+    }
+    merrCoinat();
+    setInterval(merrCoinat, 5000); // rifresko çdo 5 sekonda
+  </script>
+</body>
+</html>
